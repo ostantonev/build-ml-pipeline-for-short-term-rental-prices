@@ -6,27 +6,27 @@ entry_points:
     parameters:
 
       input_artifact:
-        description: ## ADD DESCRIPTION
+        description: "artefact_before cleaning"
         type: string
 
       output_artifact:
-        description: ## ADD DESCRIPTION
+        description: "cleaned artefact"
         type: string
 
       output_type:
-        description: ## ADD DESCRIPTION
+        description: "W&B artifact output type"
         type: string
 
       output_description:
-        description: ## ADD DESCRIPTION
+        description: "description of output artefact"
         type: string
 
       min_price:
-        description: ## ADD DESCRIPTION
+        description: "min price to consider"
         type: string
 
       max_price:
-        description: ## ADD DESCRIPTION
+        description: "max price to consider"
         type: string
 
 

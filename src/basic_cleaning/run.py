@@ -5,6 +5,7 @@ Download from W&B the raw dataset and apply some basic data cleaning, exporting 
 import argparse
 import logging
 import wandb
+import pandas as pd
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
@@ -18,11 +19,37 @@ def go(args):
 
     # Download input artifact. This will also log that this script is using this
     # particular version of the artifact
-    # artifact_local_path = run.use_artifact(args.input_artifact).file()
+    artifact_local_path = run.use_artifact(args.input_artifact).file()
 
     ######################
     # YOUR CODE HERE     #
     ######################
+    # steps from EDA.ipynb
+    df = pd.read_csv(artifact_local_path)
+    min_price = args.min_price
+    max_price = args.max_price
+    idx = df['price'].between(min_price, max_price)
+    cleaned = df[idx].copy()
+    # Convert last_review to datetime
+    cleaned['last_review'] = pd.to_datetime(df['last_review'])
+    logger.info("cleaning steps from EDA.ipynb finished")
+
+    # save
+    logger.info(f"exporting cleaned data to {args.output_artifact}")
+    cleaned.to_csv(args.output_artifact, index=False)
+
+    # wandb stuff
+    artifact = wandb.Artifact(
+        args.output_artifact,
+        type=args.output_type,
+        description=args.output_description,
+    )
+    artifact.add_file(args.output_artifact)
+
+    run.log_artifact(artifact)
+
+    # Wait for upload completion
+    artifact.wait()
 
 
 if __name__ == "__main__":
@@ -32,43 +59,43 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--input_artifact", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type=str,
+        help='artefact_before cleaning',
         required=True
     )
 
     parser.add_argument(
         "--output_artifact", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type=str,
+        help='cleaned artefact',
         required=True
     )
 
     parser.add_argument(
         "--output_type", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type=str,
+        help='W&B artifact output type',
         required=True
     )
 
     parser.add_argument(
         "--output_description", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type=str,
+        help='description of output artefact',
         required=True
     )
 
     parser.add_argument(
         "--min_price", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type=float,
+        help='min price to consider',
         required=True
     )
 
     parser.add_argument(
         "--max_price", 
-        type=## INSERT TYPE HERE: str, float or int,
-        help=## INSERT DESCRIPTION HERE,
+        type=float,
+        help='max price to consider',
         required=True
     )
 
