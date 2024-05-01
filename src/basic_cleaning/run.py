@@ -34,6 +34,10 @@ def go(args):
     cleaned['last_review'] = pd.to_datetime(df['last_review'])
     logger.info("cleaning steps from EDA.ipynb finished")
 
+    idx = cleaned['longitude'].between(-74.25, -73.50) & cleaned['latitude'].between(40.5, 41.2)
+    cleaned = cleaned[idx].copy()
+    logger.info("additional cleaning steps finished")
+   
     # save
     logger.info(f"exporting cleaned data to {args.output_artifact}")
     cleaned.to_csv(args.output_artifact, index=False)
