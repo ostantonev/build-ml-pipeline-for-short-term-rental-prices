@@ -1,3 +1,12 @@
+# Info for reviewer.
+Hello,
+Github Repository: https://github.com/ostantonev/build-ml-pipeline-for-short-term-rental-prices
+W&B: https://wandb.ai/osantonevych-trainings/nyc_airbnb?nw=nwuserosantonevych
+
+NOTE: in conda.yml is - defaults removed, together with .condarc in my home folder i restrict conda to use the packages outside of free conda-forge repository. this probably caused the necessarity to change some dependencies in conda.yml
+
+
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
