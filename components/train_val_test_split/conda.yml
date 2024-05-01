@@ -1,7 +1,6 @@
 name: download_file
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - python=3.10.0
   - pip=23.3.1

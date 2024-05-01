@@ -1,7 +1,6 @@
 name: basic_cleaning
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - python=3.10
   - hydra-core=1.3.2
