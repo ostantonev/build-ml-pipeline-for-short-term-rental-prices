@@ -4,8 +4,8 @@ channels:
 dependencies:
   - python=3.10.0
   - pandas=2.1.3
-  - pytest=6.2.2
-  - scipy=1.5.2
+  - pytest=8.2.0 # resolved by conda because of error pytest 6.2.2**  is not installable because there are no viable options
+  - scipy=1.13.0 # resolved by conda
   - pip=23.3.1
   - pip:
       - mlflow==2.8.1
